@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  django-backend:
+    image: cheapify-django-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    # volumes:
+    #   - .:/code
+  react-frontend:
+    image: cheapify-react-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    # volumes:
+    #   - .:/code

@@ -1,5 +1,5 @@
 # ./Dockerfile 
-FROM python:3
+FROM python:3-alpine
 
 WORKDIR /usr/src/app
 
