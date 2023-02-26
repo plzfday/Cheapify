@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from .serialiser import ProductSerialiser
 from .models import Product
+from .tesco import retrieve_products_by_category
 
 
 @api_view(['GET'])
@@ -41,3 +42,10 @@ def getTopProducts(request):
         name__icontains=query).order_by('-price')[:2]
     serialiser = ProductSerialiser(products, many=True)
     return Response({'products': serialiser.data})
+
+
+@api_view(['GET'])
+def updateProduct(request):
+    url = "https://www.tesco.com/groceries/en-GB/shop/fresh-food/all"
+    retrieve_products_by_category(url)
+    return Response("Products Updated")

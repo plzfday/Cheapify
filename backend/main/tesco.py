@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import re
 
-from models import Product, Category
+from .models import Product, Category
 
 
 def retrieve_products_by_category(link):
