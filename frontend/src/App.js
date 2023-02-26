@@ -4,21 +4,14 @@ import { themes } from "./themes";
 import GlobalStyles from "./GlobalStyles";
 import React from "react";
 
+import Homepage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
+
 const Container = styled.div`
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     justify-content: space-between;
-`;
-
-const Title = styled.h1`
-    font-family: "Pretendard Variable";
-    font-style: normal;
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 38px;
-
-    color: #000000;
 `;
 
 function App() {
@@ -28,7 +21,13 @@ function App() {
                 <GlobalStyles />
                 <Container>
                     <Router>
-                        <Title>Hello World</Title>
+                        <Routes>
+                            <Route path="/" element={<Homepage />} />
+                            <Route
+                                path="/products"
+                                element={<ProductPage />}
+                            />
+                        </Routes>
                     </Router>
                 </Container>
             </React.Fragment>

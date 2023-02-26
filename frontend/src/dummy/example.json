@@ -1,0 +1,24 @@
+{
+    "results": [
+        {
+            "id": 0,
+            "name": "Oranges",
+            "price": 1.19,
+            "quanity": 5,
+            "seller": "Sainsbury's",
+            "rank": 1,
+            "link": "https://www.sainsburys.co.uk/gol-ui/product/sainsburys-oranges-x5",
+            "image_url": "/products/orange1.jpg"
+        },
+        {
+            "id": 1,
+            "name": "Orange Each",
+            "price": 1.63,
+            "quanity": 5,
+            "seller": "Lidl",
+            "rank": 2,
+            "link": "https://www.lidl.co.uk/p/pick-of-the-week/oranges/p58764",
+            "image_url": "/products/orange2.jpg"
+        }
+    ]
+}
