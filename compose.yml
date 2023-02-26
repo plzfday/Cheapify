@@ -5,10 +5,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    volumes:
+      - ./backend/db.sqlite3:/usr/src/app/db.sqlite3
     ports:
       - "8000:8000"
-    # volumes:
-    #   - .:/code
   react-frontend:
     image: cheapify-react-frontend
     build:
@@ -18,5 +18,3 @@ services:
       - ./frontend/src:/app/src
     ports:
       - "3000:3000"
-    # volumes:
-    #   - .:/code
