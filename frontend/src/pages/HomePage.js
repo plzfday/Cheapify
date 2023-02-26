@@ -1,11 +1,21 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+    faBeer,
+    faBreadSlice,
+    faDrumstickBite,
+    faJar,
+    faLemon,
+    faSearch,
+    faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import data from "../dummy/example.json";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SEARCH_RESET } from "../constants/productConstants";
 
 const StyledMain = styled.main`
     box-sizing: border-box;
@@ -195,9 +205,47 @@ const Image = styled.img`
     border-radius: 8px;
     z-index: 1;
 `;
+
+const CategoryOptions = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 32px;
+`;
+
+const CategoryWrapper = styled.button`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    background-color: ${({ selected }) =>
+        selected ? "#e6e6e6" : "transparent"};
+    gap: 4px;
+`;
+
+const CategoryTitle = styled.h2`
+    font-family: "Pretendard Variable";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+
+    color: #000000;
+`;
+
+const CategoryIcon = styled(FontAwesomeIcon)`
+    width: 100px;
+    height: 100px;
+    color: #000000;
+`;
+
 export default function Homepage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [keyword, setKeyword] = useState("");
+    const [category, setCategory] = useState("");
     const [isShowing, setIsShowing] = useState(false);
     const [isMovingMouse, setIsMovingMouse] = useState(false);
     const [cursor, setCursor] = useState(-1);
@@ -241,20 +289,72 @@ export default function Homepage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!isShowing) {
+        if (category === "") {
             navigate({
                 pathname: "/products",
                 search: `?${createSearchParams({
                     search: keyword,
                 })}`,
             });
+        } else {
+            navigate({
+                pathname: "/products",
+                search: `?${createSearchParams({
+                    search: keyword,
+                    category: category,
+                })}`,
+            });
         }
     };
+
+    useEffect(() => {
+        // dispatch(getSearchResults(keyword, category));
+        return () => {
+            dispatch({ type: SEARCH_RESET });
+        };
+    }, [dispatch, keyword, category]);
 
     return (
         <StyledMain>
             <MainContainer>
-                <Title>Shopify</Title>
+                <Title>Cheapify</Title>
+                <CategoryOptions>
+                    <CategoryWrapper
+                        onClick={(e) => setCategory("fresh_food")}
+                        selected={"fresh_food" === category}
+                    >
+                        <CategoryIcon icon={faLemon} size="2xl" />
+                        <CategoryTitle>Fresh Food</CategoryTitle>
+                    </CategoryWrapper>
+                    <CategoryWrapper
+                        onClick={(e) => setCategory("frozen_food")}
+                        selected={"frozen_food" === category}
+                    >
+                        <CategoryIcon icon={faDrumstickBite} size="2xl" />
+                        <CategoryTitle>Frozen Food</CategoryTitle>
+                    </CategoryWrapper>
+                    <CategoryWrapper
+                        onClick={(e) => setCategory("bakery")}
+                        selected={"bakery" === category}
+                    >
+                        <CategoryIcon icon={faBreadSlice} size="2xl" />
+                        <CategoryTitle>Bakery</CategoryTitle>
+                    </CategoryWrapper>
+                    <CategoryWrapper
+                        onClick={(e) => setCategory("food_cupboard")}
+                        selected={"food_cupboard" === category}
+                    >
+                        <CategoryIcon icon={faJar} size="2xl" />
+                        <CategoryTitle>Food Cupboard</CategoryTitle>
+                    </CategoryWrapper>
+                    <CategoryWrapper
+                        onClick={(e) => setCategory("drinks")}
+                        selected={"drinks" === category}
+                    >
+                        <CategoryIcon icon={faBeer} size="2xl" />
+                        <CategoryTitle>Drinks</CategoryTitle>
+                    </CategoryWrapper>
+                </CategoryOptions>
                 <SearchContainer onSubmit={handleSubmit}>
                     <SearchForm>
                         <label htmlFor="keyword">

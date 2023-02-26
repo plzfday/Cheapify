@@ -157,7 +157,7 @@ export default function ProductPage() {
     const sampleData = data.results[0];
 
     useEffect(() => {
-        // dispatch(getSearchResults(keyword));
+        // dispatch(getSearchResults(keyword, category));
         return () => {
             dispatch({ type: SEARCH_RESET });
         };
@@ -169,7 +169,7 @@ export default function ProductPage() {
                 <Products>
                     {data.results.map((product) => {
                         return (
-                            <ProductContainer href={product.link}>
+                            <ProductContainer key={product.id} href={product.link}>
                                 <Image src={product.image_url} />
                                 <ProductList>
                                     <InfoWrap>

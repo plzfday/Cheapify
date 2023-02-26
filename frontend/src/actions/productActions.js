@@ -4,11 +4,11 @@ window.axios = axios;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.withCredentials = true;
 
-export const getSearchResults = (keyword) => async (dispatch) => {
+export const getSearchResults = (keyword, category) => async (dispatch) => {
     try {
         dispatch({ type: constants.SEARCH_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PROXY_URL}/search?keyword=${keyword}`
+            `${process.env.REACT_APP_PROXY_URL}/search?keyword=${keyword}&category=${category}`
         );
         dispatch({ type: constants.SEARCH_SUCCESS, payload: data });
     } catch (error) {
