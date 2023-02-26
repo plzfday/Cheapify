@@ -1,12 +1,11 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from serialiser import ProductSerialiser
-from models import Category, Product
+from .serialiser import ProductSerialiser
+from .models import Product
 
-# Create your views here.
+
 @api_view(['GET'])
 def getProducts(request):
     query = request.query_params.get("keyword")
@@ -32,11 +31,13 @@ def getProducts(request):
     serialiser = ProductSerialiser(products, many=True)
     return Response({'products': serialiser.data, 'page': page, 'pages': paginator.num_pages})
 
+
 @api_view(['GET'])
 def getTopProducts(request):
     query = request.query_params.get("keyword")
     if query == None:
         query = ""
-    products = Product.objects.filter(name__icontains=query).order_by('-price')[:2]
+    products = Product.objects.filter(
+        name__icontains=query).order_by('-price')[:2]
     serialiser = ProductSerialiser(products, many=True)
     return Response({'products': serialiser.data})

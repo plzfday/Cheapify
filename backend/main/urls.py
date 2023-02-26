@@ -1,5 +1,7 @@
 from django.urls import path
-import views
+from . import views
+
+app_name = "main"
 
 urlpatterns = [
     path('api/products', views.getProducts, name="products"),

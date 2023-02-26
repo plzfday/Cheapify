@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from models import Category, Product
+from .models import Category, Product
 
 class CategorySerialiser(ModelSerializer):
     class Meta:
